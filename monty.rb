@@ -1,3 +1,6 @@
+require 'contracts'
+include Contracts
+
 # Useful things!
 def reload!
   load './monty.rb'
@@ -16,37 +19,38 @@ class Door
 end
 
 # Represent the doors
+Contract None => ArrayOf[Door]
 def make_doors
   %i(car goat goat).shuffle.each_with_index.map do |item,index|
     Door.new(index + 1, item)
   end
 end
-# => [#<Door: ..., ... ]
 
 # Initial contentant choice
+Contract ArrayOf[Door] => Door
 def choose_door(doors)
   doors.sample
 end
-# => #<Door: ... >
 
 # Returns door number of a goat door
+Contract ArrayOf[Door], Door => Door
 def reveal_goat(doors, contestant_door)
   doors.select do |door|
     door.item == :goat && door != contestant_door
   end.first
 end
-# => #<Door: @item=:goat ... >
 
 # When the contenstant switches
+Contract ArrayOf[Door], Door, Door => Door
 def switch_door(doors, goat_door, contestant_door)
   doors.reject do |door|
     door == goat_door ||
       door == contestant_door
   end.first
 end
-# => #<Door: @item= ... >
 
 # Win or lose?
+Contract Door => Symbol
 def result(contestant_door)
   if contestant_door.item == :car
     :win
@@ -58,6 +62,7 @@ end
 # => :lose
 
 # Simulates a single run of the game with a strategy
+Contract Symbol => Symbol
 def run_game(strategy)
   doors = make_doors
   contestant_door = choose_door(doors)
@@ -70,13 +75,14 @@ end
 # => :win, :lose
 
 # Which is best??!?!?!?!!?
-
+Contract Symbol, Num => Num
 def run_strategy(strategy, rounds)
   rounds.times.select do
     run_game(strategy) == :win
   end.count
 end
 
+Contract None => Hash
 def win_counts
   {
     stick: run_strategy(:stick, 10_000),
