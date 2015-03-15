@@ -13,6 +13,8 @@ Run the simulation:
 
     bundle exec pry -r ./monty.rb
 
+    > win_counts
+
 # To do
 
 - a little web app to show the strategies competing against each other with
