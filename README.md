@@ -17,3 +17,12 @@ Run the simulation:
 
 - a little web app to show the strategies competing against each other with
   a running total of win counts
+
+# License
+
+The Ruby code is MIT licensed (see LICENSE).
+
+The included Keynote presentation (the-full-monty-hall.key) is licensed under
+the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+License. To view a copy of this license, visit
+http://creativecommons.org/licenses/by-nc-sa/4.0/.
